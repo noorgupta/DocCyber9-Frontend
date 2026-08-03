@@ -191,6 +191,7 @@ const data = await apiCall(
                       const parts = res.split(',');
                       const b64 = parts.length > 1 ? parts[1] : parts[0];
                       setFileBase64(b64);
+                      console.log("Base64 length:", b64.length);
                     } catch (err) {
                       console.error('Failed to read file as base64', err);
                       setFileBase64(null);
