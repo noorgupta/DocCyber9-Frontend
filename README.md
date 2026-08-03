@@ -16,23 +16,20 @@ https://doccyber9-backend.onrender.com
 
 ### Home
 
-![Home](screenshots/home.png)
+<img width="1879" height="922" alt="Screenshot from 2026-08-03 23-19-23" src="https://github.com/user-attachments/assets/e52b4118-6cb0-47a5-906d-235acff7f5de" />
+
 
 ### Login
 
-![Login](screenshots/login.png)
+<img width="1879" height="922" alt="Screenshot from 2026-08-03 23-19-45" src="https://github.com/user-attachments/assets/859b10ee-221e-4fc8-9b4c-6ab4613f1554" />
+
 
 ### Store Document
+<img width="1879" height="922" alt="Screenshot from 2026-08-03 23-21-33" src="https://github.com/user-attachments/assets/a258ef8a-42a0-4f2d-927f-1298da97c228" />
 
-![Store](screenshots/store.png)
-
-### Verification Success
-
-![Verify](screenshots/verify-success.png)
 
 ### Tampered Document Detection
-
-![Tampered](screenshots/tampered.png)
+<img width="1879" height="922" alt="Screenshot from 2026-08-03 23-22-12" src="https://github.com/user-attachments/assets/cf40c6b9-d27f-4904-983f-f8495d8b1db6" />
 
 ---
 
