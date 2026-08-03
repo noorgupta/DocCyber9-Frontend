@@ -5,8 +5,7 @@
  * ═══════════════════════════════════════════════════════════════════
  */
 
-const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000';
-
+export const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000';
 /**
  * Retrieve JWT token from localStorage
  * Checks multiple possible key names for compatibility

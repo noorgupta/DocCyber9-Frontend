@@ -33,27 +33,20 @@ const Store = () => {
       // Use Base64 content for files. If fileBase64 is present, send it (without data:*;base64, prefix).
       const payloadText = fileBase64 || documentText;
 
-      if (!payloadText) throw new Error('No file or document content to store. Please upload a file or paste content.');
+if (!payloadText) {
+  throw new Error("No file or document content to store.");
+}
 
-      let data;
-      // If we have an uploadedFile, send multipart/form-data
-      if (uploadedFile) {
-        const form = new FormData();
-        form.append('file', uploadedFile, uploadedFile.name);
-        form.append('fileName', documentName || uploadedFileName || uploadedFile.name);
-        // apiCall understands FormData
-        data = await apiCall('/document/store', 'POST', form, true);
-      } else {
-        data = await apiCall(
-          '/document/store',
-          'POST',
-          {
-            documentText: payloadText,
-            fileName: documentName || uploadedFileName || 'Unnamed Document'
-          },
-          true // requiresAuth = true
-        );
-      }
+const data = await apiCall(
+  "/document/store",
+  "POST",
+  {
+    documentText: payloadText,
+    fileName: documentName || uploadedFileName || "Unnamed Document",
+    fileType: uploadedFile?.type || "text/plain"
+  },
+  true
+);
 
   // (no raw debug response stored in UI)
 

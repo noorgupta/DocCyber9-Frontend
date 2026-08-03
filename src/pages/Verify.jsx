@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import Navbar from '../components/Navbar';
 import { formatDate } from '../utility/formatters';
+import { API_BASE_URL } from '../utility/api';
+import { apiCall } from '../utility/api';
 
 /**
  * ═══════════════════════════════════════════════════════════════════
@@ -15,6 +17,7 @@ const Verify = () => {
   const [documentText, setDocumentText] = useState('');
   const [uploadedFile, setUploadedFile] = useState(null);
   const [uploadedFileName, setUploadedFileName] = useState('');
+  const [fileBase64, setFileBase64] = useState(null); 
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState(null);
   const [error, setError] = useState('');
@@ -29,30 +32,18 @@ const Verify = () => {
 
       let response;
 
-      if (uploadedFile) {
-        // Send multipart/form-data when a file is present
-        const form = new FormData();
-        form.append('file', uploadedFile, uploadedFileName || uploadedFile.name);
+      const payloadText = fileBase64 || documentText;
 
-        response = await fetch(`http://localhost:3000/document/verify/${documentId}`, {
-          method: 'POST',
-          headers: {
-            'Authorization': `Bearer ${token}`
-          },
-          body: form
-        });
-      } else {
-        // Fallback to JSON text submission
-        response = await fetch(`http://localhost:3000/document/verify/${documentId}`, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${token}`
-          },
-          body: JSON.stringify({ documentText })
-        });
-      }
-
+response = await fetch(`${API_BASE_URL}/document/verify/${documentId}`, {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json',
+    'Authorization': `Bearer ${token}`
+  },
+  body: JSON.stringify({
+    documentText: payloadText
+  })
+});
       const data = await response.json();
 
       if (!response.ok) {
@@ -128,10 +119,34 @@ const Verify = () => {
                   type="file"
                   accept="*/*"
                   onChange={(e) => {
-                    const f = e.target.files && e.target.files[0];
-                    setUploadedFile(f || null);
-                    setUploadedFileName(f ? f.name : '');
-                  }}
+                const f = e.target.files && e.target.files[0];
+
+                if (!f) {
+                setUploadedFile(null);
+                setUploadedFileName('');
+                setFileBase64(null);
+              return;
+            }
+
+            setUploadedFile(f);
+            setUploadedFileName(f.name);
+
+            const reader = new FileReader();
+
+          reader.onload = () => {
+          const result = reader.result || "";
+          const parts = result.split(",");
+          const base64 = parts.length > 1 ? parts[1] : parts[0];
+
+          setFileBase64(base64);
+        };
+
+        reader.onerror = () => {
+        setFileBase64(null);
+      };
+
+      reader.readAsDataURL(f);
+      }}
                   className="w-full text-sm text-gray-300 file:bg-black file:border-2 file:border-green-500/30 file:px-3 file:py-2 file:rounded-lg"
                 />
                 {uploadedFile && (
