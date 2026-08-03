@@ -4,11 +4,8 @@ Frontend application for the **DocCyber Document Integrity Verification System**
 
 ## Live Demo
 
-Frontend:
+Live URL:
 https://YOUR-VERCEL-URL
-
-Backend API:
-https://doccyber9-backend.onrender.com
 
 ---
 
